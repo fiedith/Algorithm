@@ -1,12 +1,12 @@
 # p.248 dijkstra using heap (min-priority queue)
-# time complexity: O(ElogV) when E vertices and V nodes are given
+# time complexity: O(ElogV) when E edges and V nodes are given
 
 import heapq
 import sys
 input = sys.stdin.readline
 INF = 987654321
 
-# n nodes and m vertices
+# n nodes and m edges
 n, m = map(int, input().split())
 
 # starting node number

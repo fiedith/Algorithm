@@ -5,7 +5,7 @@ import sys
 input = sys.stdin.readline
 INF = 987654321
 
-# number of nodes n, vertices m
+# number of nodes n, edges m
 n, m = map(int, input().split())
 
 # starting node number
@@ -16,7 +16,7 @@ start = int(input())
 # value = tuple containing (adjacent node number, cost)
 graph = [[] for i in range(n + 1)]
 
-# input all vertices infos
+# input all edges infos
 for _ in range(m):
     # node a to node b costs c
     a, b, c = map(int, input().split())
