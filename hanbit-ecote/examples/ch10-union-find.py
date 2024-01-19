@@ -11,18 +11,18 @@ def find_parent(parent, x):
     # recursively search root node
     if parent[x] != x:
         # compression: replace parent node to root node and return it
-        parent[x] = find_parent(parent, [parent[x]])
+        parent[x] = find_parent(parent, parent[x])
     return parent[x]
 
 # union
 def union_parent(parent, a, b):
-    a = find_parent(parent, a)
-    b = find_parent(parent, b)
+    a_root = find_parent(parent, a)
+    b_root = find_parent(parent, b)
     # smaller root value becomes the root node for union set
-    if a < b:
-        parent[b] = a
+    if a_root < b_root:
+        parent[b_root] = a_root
     else:
-        parent[a] = b
+        parent[a_root] = b_root
 
 # set each node's parent be the node itself
 for i in range(1, v + 1):
