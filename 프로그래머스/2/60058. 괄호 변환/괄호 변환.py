@@ -14,15 +14,10 @@ def balanced_index(p):
 # @param string
 # @return boolean
 def check_proper(p):
-    counter = 0     # 여는 괄호의 개수
-    for i in range(len(p)):
-        if p[i] == '(':
-            counter += 1
-        else:
-            if counter == 0:    # 닫는 괄호로 시작하는 경우 이는 무조건 올바른 문자열이 아님
-                return False
-            counter -= 1
-    return True
+    if p[0] == '(':     # 균형 잡힌 문자열이 param으로 주어질 경우 열린 괄호로 시작하면 무조건 올바르다
+        return True
+    else:
+        return False
 
 def solution(p):
     answer = ''
