@@ -84,15 +84,15 @@ for data in combinations(spaces, 3):
 
     # 장애물을 설치하고 학생이 한 명도 감지되지 않는 경우 성공한 것이다
     if not process():
-        find = True
+        found = True
         break
     
     # 설치했는데도 발견된 학생이 있는 경우 실패한 것이므로, 원상복구 후 다음 조합 구성
     for x, y in data:
-        board[x][y] == 'X'
+        board[x][y] = 'X'
 
-# 수행 결과 find에 따른 출력 결과
-if find:
+# 수행 결과 found에 따른 출력 결과
+if found:
     print("YES")
 else:
     print("NO")
