@@ -1,18 +1,13 @@
-# p.96 [NUMBER CARD GAME]
-# 접근 방법: 각 행마다 최소값을 구한 후 모든 최소값들 중 최대값을 정답으로 삼는다
+# p.96 숫자 카드 게임
 
+# n rows m cols
 n, m = map(int, input().split())
 
-rows = []
-for i in range(n):
-    numbers = list(map(int, input().split()))
-    numbers.sort()
-    rows.append(numbers)
+min_list = []
 
-result = rows[0][0]
+for _ in range(n):
+    row = list(map(int, input().split()))
+    min_list.append(min(row))
 
-for i in range(n):
-    if result < rows[i][0]:
-        result = rows[i][0]
-
-print(result)
+answer = max(min_list)
+print(answer)
