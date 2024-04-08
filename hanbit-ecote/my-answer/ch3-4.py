@@ -1,3 +1,14 @@
-# p.99 [1이 될 때까지]
-# n이 k로 나누어 떨어질 때까지 #1 수행 후 #2 수행
+# p.99 1이 될 때까지
 
+# number n, divisor k
+n, k = map(int, input().split())
+counter = 0
+
+while n != 1:
+    if n % k == 0:
+        n = n // k
+    else:
+        n -= 1
+    counter += 1
+
+print(counter)
