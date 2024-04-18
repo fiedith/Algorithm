@@ -1,43 +1,33 @@
 # p.115 왕실의 나이트
 
+# e.g. a1, c4, g2
+pos = list(input())
+
+BOARD_SIZE = 8
+cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 rows = ['1', '2', '3', '4', '5', '6', '7', '8']
-columns = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-# 예시 input: a1
-position = input()
-col_val = position[0]
-row_val = position[1]
 
-col_pos = columns.index(col_val)
-row_pos = rows.index(row_val)
-counter = 0
+# (row idx, col idx)
+moves = [(-2, 1), (-2, -1), (2, 1), (2, -1), (1, 2), (1, -2), (-1, 2), (-1, -2)]
 
-# 왼쪽 이동 가능 시
-if col_pos - 2 >= 0:
-    if row_pos - 1 >= 0:
-        counter += 1
-    if row_pos + 1 <= len(rows) - 1:
-        counter += 1
+for i in range(BOARD_SIZE):
+    if pos[0] == cols[i]:
+        col_idx = i
 
-# 오른쪽 이동 가능 시
-if col_pos + 2 <= len(columns) - 1:
-    if row_pos - 1 >= 0:
-        counter += 1
-    if row_pos + 1 <= len(rows) - 1:
-        counter += 1
+for i in range(BOARD_SIZE):
+    if pos[1] == rows[i]:
+        row_idx = i
 
-# 상 이동 가능 시
-if row_pos - 2 >= 0:
-    if col_pos - 1 >= 0:
-        counter += 1
-    if col_pos + 1 <= len(columns) - 1:
-        counter += 1
+pos_pair = (row_idx, col_idx)
 
-# 하 이동 가능 시
-if row_pos + 2 <= len(rows) - 1:
-    if col_pos - 1 >= 0:
-        counter += 1
-    if col_pos + 1 <= len(columns) - 1:
-        counter += 1
+answer = 0
+for move in moves:
+    next_row = pos_pair[0] + move[0]
+    next_col = pos_pair[1] + move[1]
 
-print(counter)
+    if next_row < 0 or next_row > BOARD_SIZE or next_col < 0 or next_col > BOARD_SIZE:
+        continue
+    answer += 1
+
+print(answer)
