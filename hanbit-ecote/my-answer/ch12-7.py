@@ -1,18 +1,13 @@
 # p.321 럭키 스트레이트
 
-score = input()
-score_list = list(map(int, str(score)))
-divider = len(score_list) // 2
+input = list(input())
+score = [int(num) for num in input]
 
-right = 0
-left = 0
-for i in range(0, divider):
-    right += score_list[i]
+mid = len(score) // 2
+left_scores = score[0:mid]
+right_scores = score[mid:len(score)]
 
-for j in range(divider, len(score_list)):
-    left += score_list[j]
-
-if right == left:
+if sum(left_scores) == sum(right_scores):
     print("LUCKY")
 else:
     print("READY")
