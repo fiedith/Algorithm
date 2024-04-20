@@ -1,22 +1,21 @@
 # p.322 문자열 재정렬
 
-string = input()
-string = list(string)
+s = list(input())
+s.sort()
 
-# sorts int followed by strings
-string.sort()
+result_list = []
+total = 0
 
-sum = 0
+for item in (s):
+    if ord(item) < ord('A'):
+        total += int(item)
+        continue
+    result_list.append(item)
 
-while True:
-    # break if not intable
-    try:
-        int_value = int(string[0])
-    except ValueError:
-        break
+string = ''.join(result_list)
 
-    # pop int and add to sum
-    sum += int(string.pop(0))
-
-result = ''.join(string)
-print(result + str(sum))
+# prevent from printing 0
+if total == 0:
+    print(string)
+else:
+    print(string + str(total))
