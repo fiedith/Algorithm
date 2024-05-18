@@ -1,47 +1,41 @@
-# @param string
-# @return int
-def balanced_index(p):
-    open_counter = 0
-    close_counter = 0
-    for i in range(len(p)):
-        if p[i] == '(':
-            open_counter += 1
-        else:
-            close_counter += 1
-        if open_counter == close_counter:
-            return i    # 여는 괄호와 닫는 괄호가 일치하는 시점이 올바른 문자열의 index
-
-# @param string
-# @return boolean
-def check_proper(p):
-    if p[0] == '(':     # 균형 잡힌 문자열이 param으로 주어질 경우 열린 괄호로 시작하면 무조건 올바르다
-        return True
-    else:
-        return False
-
 def solution(p):
-    answer = ''
-    # 빈 문자열은 있는 그대로 반환하는 조건이자 재귀함수 종료 조건
+    # 1. 빈 문자열이라면 빈 문자열 반환
     if p == '':
         return ''
-    index = balanced_index(p)   # 문자열에서 최초로 균형 잡힌 시점을 기준으로 u, v로 나눈다
-    u = p[:index + 1]
-    v = p[index + 1:]
     
-    # 조건: u가 올바르면 v를 재귀실행하고 결과를 뒤이어 붙인다.
-    if check_proper(u):
-        answer = u
-        answer += solution(v)
-    # 조건: u가 올바르지 않다면 조건을 따른다.
+    # 2. 문자열 p를 u, v로 분리
+    u = ''
+    v = ''
+    arr = list(p)
+    opening = 0
+    closing = 0
+
+    for i in range(len(arr)):
+        if arr[i] == '(':
+            opening += 1
+        else:
+            closing += 1
+        if opening == closing:
+            for letter in arr[0 : i+1]:
+                u += letter
+            for letter in arr[i+1 : len(arr) + 1]:
+                v += letter
+            break
+    
+    # 3. u가 올바르다면 문자열 v에 대해 1단계부터 재귀수행 후 u에 이어 붙인다
+    if u[0] == '(':
+        return u + solution(v)
+    # 4. u가 올바르지 않다면 아래 과정을 수행
     else:
-        answer = '('
-        answer += solution(v)
-        answer += ')'
-        u = list(u[1:-1])
-        for i in range(len(u)):
-            if u[i] == '(':
-                u[i] = ')'
+        str = '('
+        str += solution(v)
+        str += ')'
+        u_list = list(u)
+        u_list.pop(0)
+        u_list.pop()
+        for item in u_list:
+            if item == '(':
+                str += ")"
             else:
-                u[i] = '('
-        answer += "".join(u)
-    return answer
+                str += "("
+        return str
