@@ -7,18 +7,15 @@ class Solution {
         int rowCount = arr1.length;
         int colCount = arr2[0].length;
         int common = arr1[0].length;    // 두 배열 NxM * MxL 에 대해 M값
-        int[][] result = new int[rowCount][colCount];
         
-        int mulVal = 0;  // 곱 결과
+        // 행렬곱 결과 배열
+        int[][] result = new int[rowCount][colCount];
         
         for(int i = 0; i < rowCount; i++){
             for(int j = 0; j < colCount; j++){
-                mulVal = 0;  // 곱셈 값 초기화
                 for(int k = 0; k < common; k++){
-                    mulVal += (arr1[i][k] * arr2[k][j]);
+                    result[i][j] += (arr1[i][k] * arr2[k][j]);
                 }
-                // 해당 위치에 곱셈 결과 넣기
-                result[i][j] = mulVal;
             }
         }
         
