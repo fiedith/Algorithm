@@ -26,7 +26,7 @@ class Solution {
 
             // if next move is in map range
             if(dx >= -5 && dx <= 5 && dy >= -5 && dy <= 5){
-                // 기존 좌표
+                // 해당 경로를 표현하기 위한 값으로 넣기 (그러면 그 경로는 유일함)
                 visited.add(Arrays.asList(x+dx, y+dy));
                 x = dx;
                 y = dy;
