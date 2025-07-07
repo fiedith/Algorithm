@@ -1,39 +1,34 @@
 import java.util.*;
-import java.util.stream.Collectors;
 
-
+// 각 작업별 배포일자를 먼저 계산해서 복잡도 낮추는 enhancement
 class Solution {
     public int[] solution(int[] progresses, int[] speeds) {
-    
-        List<Integer> progressList = new ArrayList<>(
-            Arrays.stream(progresses).boxed().collect(Collectors.toList())
-        );
-
-        List<Integer> speedList = new ArrayList<>(
-            Arrays.stream(speeds).boxed().collect(Collectors.toList())
-        );
         
+        int n = progresses.length;
+        int[] releaseDays = new int[n];    // deployable days per job
         List<Integer> result = new ArrayList<>();
         
-        while(!progressList.isEmpty()){
-            int popped = 0;
-            for(int i = 0; i < progressList.size(); i++){
-                progressList.set(i, progressList.get(i) + speedList.get(i));
-            }
-            while(!progressList.isEmpty() && progressList.get(0) >= 100){
-                progressList.remove(0);
-                speedList.remove(0);
-                popped++;
-            }
-            if(popped != 0){
-                result.add(popped);
-            }
+        // init releases
+        for(int i = 0; i < n; i++){
+            releaseDays[i] = (int)Math.ceil((100.0 - progresses[i]) / speeds[i]);
         }
         
-        return result.stream()
-            .mapToInt(Integer::intValue)
-            .toArray();
+        // init head release day
+        int head = releaseDays[0];
+        int tasks = 0;  // deployable jobs per release
         
+        for(int i = 0; i < n; i++){
+            if(releaseDays[i] <= head){
+                tasks++;
+            } else{
+                result.add(tasks);  // add deployable job count in result
+                head = releaseDays[i];  // set next head job at current
+                tasks = 1;
+            }
+        }
+        result.add(tasks);  // add remaining
+        
+        return result.stream().mapToInt(Integer::intValue).toArray();
         
     }
 }
