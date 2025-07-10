@@ -6,24 +6,18 @@ class Solution {
         Map<String, Integer> cMap = new HashMap<>(completion.length);
         
         for(String c : completion){
-            if(!cMap.keySet().contains(c)){
-                cMap.put(c, 1);
-            } else{
-                cMap.put(c, cMap.get(c) + 1);
-            }
+            cMap.put(c, cMap.getOrDefault(c, 0) + 1);
         }
         
         for(String p : participant){
-            if(!cMap.keySet().contains(p)){
+            // return inexisting or actual 0 valued string in map
+            if(cMap.getOrDefault(p, 0) == 0){
                 return p;
-            } else if(cMap.get(p) == 1){
-                cMap.remove(p);
-            } else{
-                cMap.put(p, cMap.get(p) - 1);
             }
+            cMap.put(p, cMap.get(p) - 1);
         }
         
-        
+        // 위 반복문에서 반드시 리턴됨
         return "";
     }
 }
