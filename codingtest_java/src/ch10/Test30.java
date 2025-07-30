@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Test30 {
 
-    private static int[] set = new int[]{2, 1, 1, 1, 3, 3, 6, 6, 4, 6, 3, 6, 9, 9};
+    private static int[] set;
 
     // find root node
-    private static int find(int x){
+    private static int find(int x) {
         int parent = set[x];
-        if(parent != x){
+        if (parent != x) {
             parent = find(parent);
         }
         set[x] = parent;    // path compression
@@ -24,10 +24,16 @@ public class Test30 {
         set[xRoot] = yRoot;
     }
 
-    public static Boolean[] solution(int[][] operations){
+    public static Boolean[] solution(int k, int[][] operations) {
+        set = new int[k];
+
+        for (int i = 0; i < k; i++) {
+            set[i] = i;
+        }
+
         List<Boolean> result = new ArrayList<>();
         for (int[] operation : operations) {
-            switch(operation[0]){
+            switch (operation[0]) {
                 case 0:
                     union(operation[1], operation[2]);
                     break;
