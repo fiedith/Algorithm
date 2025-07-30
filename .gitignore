@@ -4,5 +4,9 @@
 ### IRRELEVANT FILE
 sandbox.py
 
-# PYCHARM
+### PYCHARM
 .idea
+
+### Java
+*.class
+codingtest_java/out/
