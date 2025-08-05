@@ -3,7 +3,7 @@ import java.util.*;
 class Solution {
     
     private static class Node{
-        int row, col, cost;
+        int row, col;
         public Node(int row, int col){
             this.row = row;
             this.col = col;
