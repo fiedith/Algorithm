@@ -17,6 +17,7 @@ class Solution {
         int rows = maps.length;
         int cols = maps[0].length;
         
+        // 위치값만 저장할 별도의 distance 배열 활용
         int[][] distance = new int[rows][cols];
         distance[0][0] = 1;
         
@@ -40,8 +41,9 @@ class Solution {
                     continue;
                 } 
                 
+                // not visited if distance value is 0
                 if(distance[ny][nx] == 0){
-                    q.addLast(new Node(ny, nx));
+                    q.addLast(new Node(ny, nx));    // enqueue only if unvisited
                     distance[ny][nx] = distance[now.row][now.col] + 1;
                 }
             }
