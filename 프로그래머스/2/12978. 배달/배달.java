@@ -52,7 +52,6 @@ class Solution {
         
         int answer = 0;
         for(int dist : distance){
-            System.out.println(dist);
             if(dist <= K){
                 answer++;
             }
