@@ -44,7 +44,7 @@ public class Main {
         System.out.println(result.toString());
     }
 
-    // starting idx, depth, currentList
+    // current depth, currentList
     private static void dfs(int count, List<Integer> currentList) {
         if (count == m) {
             for (int val : currentList) {
