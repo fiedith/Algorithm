@@ -1,11 +1,10 @@
-import java.util.Map;
-import java.util.HashMap;
+import java.util.*;
 
 
 class Solution {
     public int solution(int[] topping) {
         Map<Integer, Integer> baseMap = new HashMap<>();
-        Map<Integer, Integer> partner = new HashMap<>();
+        Set<Integer> partner = new HashSet<>();
         int result = 0;
         
         // init base map
@@ -13,22 +12,17 @@ class Solution {
             baseMap.put(n, baseMap.getOrDefault(n, 0) + 1);
         }
         
-        for(int i = 0; i < topping.length; i++){
+        for(int n : topping){
             if(baseMap.size() < partner.size()){
                 break;
             }
             
-            int currentTopping = topping[i];
+            partner.add(n);
+            baseMap.put(n, baseMap.get(n) - 1);
             
-            if(baseMap.containsKey(currentTopping)){
-                baseMap.put(currentTopping, baseMap.get(currentTopping) - 1);
-            } 
-            
-            if(baseMap.get(currentTopping) == 0){
-                baseMap.remove(currentTopping);
+            if(baseMap.get(n) == 0){
+                baseMap.remove(n);
             }
-            
-            partner.put(currentTopping, partner.getOrDefault(currentTopping, 0) + 1);
             
             if(partner.size() == baseMap.size()){
                 result++;
