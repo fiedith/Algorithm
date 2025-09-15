@@ -2,32 +2,25 @@ import java.util.*;
 
 class Solution {
     public int solution(int k, int[] tangerine) {
-        int answer = 0;
-        
-        // worst case: 100,000
-        Arrays.sort(tangerine);
-        int max = tangerine[tangerine.length - 1];
-        
-        // idx = size, val = number of tangerines for each size
-        int[] quantity = new int[max + 1];
-        
-        // worst case: 100,000
+        Map<Integer, Integer> map = new HashMap<>();
         for(int t : tangerine){
-            quantity[t] += 1;
+            map.put(t, map.getOrDefault(t, 0) + 1);
         }
         
-        // worst case: 10,000,000
-        Arrays.sort(quantity);
+        List<Integer> list = new ArrayList<>(map.values());
+        Collections.sort(list, Collections.reverseOrder());
         
-        // worst case: 10,000,000
-        for(int i = max; i >= 0; i--){
+        int result = 0;
+        
+        for(int c : list){
             if(k <= 0){
                 break;
             }
-            k -= quantity[i];
-            answer++;
+            
+            k -= c;
+            result++;
         }
         
-        return answer;
+        return result;
     }
 }
