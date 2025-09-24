@@ -50,7 +50,7 @@ class Solution {
 
                 // add to q only if existing min cost of the adjacent block contains larger value
                 if(cost[nx][ny] > now.val + 1){
-                    q.addLast(new Node(nx, ny, Math.min(cost[nx][ny], now.val + 1)));
+                    q.addLast(new Node(nx, ny, now.val + 1));
                 }
             }
         }
