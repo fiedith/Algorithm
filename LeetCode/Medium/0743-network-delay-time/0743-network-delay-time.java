@@ -1,3 +1,6 @@
+/**
+ * best case: dijkstra + min head(PQ)
+ */
 class Solution {
     private class Node{
         int dest;
@@ -25,7 +28,10 @@ class Solution {
             map.put(time[0], list);
         }
 
-        Deque<int[]> q = new ArrayDeque<>();
+        // Deque<int[]> q = new ArrayDeque<>();
+        // use PQ instead
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+
         List<Node> startingAdjNodes = map.getOrDefault(k, new ArrayList<>());
         // fast return
         if(startingAdjNodes.isEmpty()){
@@ -33,22 +39,27 @@ class Solution {
         }
 
         // init q
-        for(Node node : startingAdjNodes){
-            q.addLast(new int[]{node.dest, node.cost});    // int[dest no, cost]
-        }
+        // for(Node node : startingAdjNodes){
+        //     q.addLast(new int[]{node.dest, node.cost});    // int[dest no, cost]
+        // }
 
-        while(!q.isEmpty()){
-            int[] arr = q.pollFirst();
+        // just add initial [k, 0]
+        pq.add(new int[]{k, 0});
+
+        while(!pq.isEmpty()){
+            int[] arr = pq.poll();
             int now = arr[0];
             int cost = arr[1];
-            if(cost < minCost[now]){
-                minCost[now] = cost;
+            // skip the rest if not updatable
+            if(cost > minCost[now]){
+                continue;
             }
-            if(map.containsKey(now)){
-                for(Node next : map.get(now)){
-                    if(next.cost + minCost[now] < minCost[next.dest]){
-                        q.addLast(new int[]{next.dest, next.cost + minCost[now]});
-                    }
+
+            for(Node next : map.getOrDefault(now, new ArrayList<>())){
+                int newCost = cost + next.cost;
+                if(newCost < minCost[next.dest]){
+                    minCost[next.dest] = newCost;
+                    pq.add(new int[]{next.dest, newCost});
                 }
             }
         }
