@@ -9,23 +9,23 @@ class Solution {
         
         while(n > 0 && !pq.isEmpty()){
             int polled = pq.poll();
-            polled--;
-            n--;
-            if(polled == 0){
-                continue;
+            if(polled <= 0){
+                break;
             }
-            pq.add(polled);
+            
+            n--;
+            if(polled > 1){
+                pq.add(polled - 1);
+            }
+            
         }
         
         long result = 0;
-        if(pq.isEmpty()){
-            return 0;
-        } else{
-            while(!pq.isEmpty()){
-                int polled = pq.poll();
-                result += polled * polled;
-            }
-            return result;
+        while(!pq.isEmpty()){
+            long val = pq.poll();
+            result += val * val;
         }
+        
+        return result;
     }
 }
