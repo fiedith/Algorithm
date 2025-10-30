@@ -3,14 +3,19 @@ class Solution {
         Arrays.sort(nums);
 
         Set<List<Integer>> set = new HashSet<>();
+        Set<Integer> visited = new HashSet<>();
 
         for(int i = 0; i < nums.length - 2; i++){
             int target = -nums[i];
+            if(visited.contains(target)){
+                continue;
+            }
             // since array is sorted, if current target < 0, cannot form sum to target
             if(target < 0){
                 break;
             }
 
+            visited.add(target);
             int lp = i + 1;
             int rp = nums.length - 1;
 
