@@ -1,24 +1,36 @@
 class Solution {
+    class Number{
+        int value;
+        int idx;
+        
+        public Number(int value, int idx){
+            this.value = value;
+            this.idx = idx;
+        }
+    }
     public int[] twoSum(int[] nums, int target) {
-        // k: val, v: index
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int i = 0 ; i < nums.length; i++){
-            map.put(nums[i], i);
+        Number[] arr = new Number[nums.length];
+        for(int i = 0; i < nums.length; i++){
+            arr[i] = new Number(nums[i], i);
         }
 
-        int n = 0;
-        List<Integer> result = new ArrayList<>();
-        for(int i = 0; i < nums.length; i++){
-            n = target - nums[i];
-            if(map.containsKey(n) && map.get(n) != i){
-                result.add(i);
-                result.add(map.get(n));
-                break;
+        Arrays.sort(arr, (a, b) -> Integer.compare(a.value, b.value));
+
+        int lp = 0;
+        int rp = nums.length - 1;
+        
+        while(lp < rp){
+            int sum = arr[lp].value + arr[rp].value;
+            if(sum == target){
+                return new int[]{arr[lp].idx, arr[rp].idx};
+            } else if(sum < target){
+                lp++;
+            } else{
+                rp--;
             }
         }
 
-        return result.stream()
-        .mapToInt(Integer::intValue)
-        .toArray();
+        // will always return within loop
+        return new int[2];
     }
 }
