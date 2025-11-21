@@ -15,44 +15,35 @@ class Solution {
         charSet.add("*");
         charSet.add("/");
 
-        int result = 0;
-
-        // whether first operation did occur or not
-        boolean init = false;
-
         for(String s : tokens){
             // if current s is an int
             if(!charSet.contains(s)){
                 stack.push(Integer.parseInt(s));
             // if initial operation not done yet
-            } else if(!init){
-                int a = stack.pop();
-                int b = stack.pop();
-                result = calculate(s, a, b);
-                init = true;
-            } else{
-                int popped = stack.pop();
-                result = calculate(s, result, popped);
+            } else {
+                int top = stack.pop();
+                int prev = stack.pop();
+                stack.push(calculate(s, top, prev));
             }
         }
 
-        return result;
+        return stack.pop();
     }
 
-    private static int calculate(String operator, int res, int popped){
+    private static int calculate(String operator, int top, int prev){
         int result = 0;
         switch(operator){
             case "+":
-                result = popped + res;
+                result = prev + top;
                 break;
             case "-":
-                result = popped - res;
+                result = prev - top;
                 break;
             case "*":
-                result = popped * res;
+                result = prev * top;
                 break;
             case "/":
-                result = popped / res;
+                result = prev / top;
                 break;
         }
 
