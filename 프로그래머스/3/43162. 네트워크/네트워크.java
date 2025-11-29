@@ -1,48 +1,52 @@
 import java.util.*;
 
 class Solution {
-    
-    private static List<Integer>[] adjList;
-    private static boolean[] visited;
+    private List<Integer>[] adjList;
+    private boolean[] visited;
     
     public int solution(int n, int[][] computers) {
+        // init adjacency list, visited arr
         adjList = new ArrayList[n];
-        for(int i = 0; i < n; i++){
+        for(int i = 0; i < n; i++) {
             adjList[i] = new ArrayList<>();
         }
         
-        for(int i = 0; i < computers.length; i++){
-            int[] edge = computers[i];
-            for(int j = 0; j < edge.length; j++){
-                if(edge[j] == 1 && i != j){
+        visited = new boolean[n];
+        
+        // fill in adj list
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                if(computers[i][j] == 1 && i != j) {
                     adjList[i].add(j);
                 }
             }
         }
         
-        visited = new boolean[n];
+        int result = 0;
         
-        int answer = 0;
-        
-        // call dfs for all nodes
-        // count all unvisited dfs calls and return as answer
-        for(int i = 0; i < n; i++){
-            if(!visited[i]){
+        // for each nodes
+        for(int i = 0; i < n; i++) {
+            // if current node not visited, run dfs
+            if(!visited[i]) {
                 dfs(i);
-                answer++;
+                result++;
             }
         }
-        return answer;
+        
+        return result;
     }
     
-    // recursively visit all adjacent nodes and mark as visited
-    private static void dfs(int x){
-        visited[x] = true;
-        if(adjList[x].isEmpty()){
-            return;
-        }
-        for(int next : adjList[x]){
-            if(!visited[next]){
+    // marks current node & all connected nodes as visited
+    private void dfs(int node) {
+        // mark current node as visited
+        visited[node] = true;
+        
+        // get all connected nodes
+        List<Integer> connected = adjList[node];
+        
+        // for each connected nodes, run dfs
+        for(int next : connected) {
+            if(!visited[next]) {
                 dfs(next);
             }
         }
