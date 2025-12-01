@@ -36,10 +36,16 @@ public class Main {
         }
         
         Collections.sort(result);
-        System.out.println(result.size());
+        
+        // console print optimization
+        StringBuilder sb = new StringBuilder();
+        sb.append(result.size()).append("\n");
+        
         for(int num : result) {
-            System.out.println(num);
+            sb.append(num).append("\n");
         }
+        
+        System.out.println(sb.toString());
     }
     
     private static int bfs(int[][] graph, boolean[][] visited, int row, int col) {
