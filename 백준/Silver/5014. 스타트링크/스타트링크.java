@@ -31,7 +31,7 @@ public class Main {
         Deque<int[]> q = new ArrayDeque<>();
         
         // visited floors
-        Set<Integer> visited = new HashSet<>();
+        boolean[] visited = new boolean[stories + 1];
         
         q.addLast(new int[]{init, 0});
         
@@ -40,13 +40,6 @@ public class Main {
             int val = polled[0];
             int count = polled[1];
             
-            // if already visited val, continue
-            if(visited.contains(val)) {
-                continue;
-            }
-            
-            // mark polled val as visited
-            visited.add(val);    
             int uVal = val + u;
             int dVal = val - d;
             
@@ -56,12 +49,14 @@ public class Main {
                 return;
             }
             
-            // else, add next in-bounds upper and under vals
-            if(uVal <= stories) {
+            // else, add next in-bounds & non-visited upper and under vals
+            if(uVal <= stories && !visited[uVal]) {
                 q.addLast(new int[]{uVal, count + 1});
+                visited[uVal] = true;
             }
-            if(dVal > 0) {
+            if(dVal > 0 && !visited[dVal]) {
                 q.addLast(new int[]{dVal, count + 1});
+                visited[dVal] = true;
             }
             
         }
