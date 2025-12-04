@@ -90,6 +90,10 @@ public class Main {
         
         for(int row = 0; row < graph.length; row++) {
             for(int col = 0; col < graph[0].length; col++) {
+                if(bfsCount == 2) {
+                    return 2;    // early return
+                }
+                
                 if(visited[row][col]) {
                     continue;
                 }
@@ -120,6 +124,6 @@ public class Main {
                 }
             }
         }
-        return (bfsCount >= 2) ? 2 : bfsCount;
+        return bfsCount;
     }
 }
